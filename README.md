@@ -1,12 +1,12 @@
 # temalab
 
 CSAPAT: 
--Csík Tamás (FMXR64) csktomi@gmail.com
--Tamás Dominik (WZB0XZ) tamasdominikmate@gmail.com
--Zanati Nóra (XOOBG5) zanati.nora @gmail.com
--Dávid Ferenc (OT59Q7) ferkodavid5@gmail.com
+- Csík Tamás (FMXR64) csktomi@gmail.com
+- Tamás Dominik (WZB0XZ) tamasdominikmate@gmail.com
+- Zanati Nóra (XOOBG5) zanati.nora@gmail.com
+- Dávid Ferenc (OT59Q7) ferkodavid5@gmail.com
         
-        Témalabor első lépések
+Témalabor első lépések
 Az webapplikáció neve: „FitneC#”
 
 
