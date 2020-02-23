@@ -7,7 +7,7 @@ CSAPAT:
 - Dávid Ferenc (OT59Q7) ferkodavid5@gmail.com
         
 Témalabor első lépések
-Az webapplikáció neve: „FitneC#”
+# Az webapplikáció neve: „FitneC#”
 
 
 Specifikáció:  
