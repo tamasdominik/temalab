@@ -22,3 +22,6 @@ A webalkalmazás 6 fő menüpontot foglal magába:
 
 ### Technológia: 
 A webalkalmazáshoz használt adatbázis MSSQL lesz, az adatelérési réteget entity framework-kel implementáljuk. Az app SPA-ként lesz megvalósítva és Angular keretrendszert fogunk hozzá használni. Verziókezelés Githubon fog történni.
+
+### Adatbázis szerkezete:
+![alt text](https://raw.githubusercontent.com/tamasdominik/temalab/master/ADATB.png "Adatbázis")
