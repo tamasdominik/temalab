@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -14,6 +14,8 @@ import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { ProfileComponent } from './profile/profile.component';
 import { WorkoutsComponent } from './workouts/workouts.component';
+import { StatisticsComponent } from './statistics/statistics.component';
+import { combineAll } from 'rxjs/operators';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { WorkoutsComponent } from './workouts/workouts.component';
     CounterComponent,
     FetchDataComponent,
     ProfileComponent,
-    WorkoutsComponent
+    WorkoutsComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -35,6 +38,7 @@ import { WorkoutsComponent } from './workouts/workouts.component';
       { path: 'counter', component: CounterComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'workouts', component: WorkoutsComponent },
+      { path: 'statistics', component: StatisticsComponent},
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
     ])
   ],
