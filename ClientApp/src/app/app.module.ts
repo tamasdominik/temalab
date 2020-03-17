@@ -14,6 +14,7 @@ import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { ProfileComponent } from './profile/profile.component';
 import { WorkoutsComponent } from './workouts/workouts.component';
+import { RanglistComponent } from './ranglist/ranglist.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { WorkoutsComponent } from './workouts/workouts.component';
     CounterComponent,
     FetchDataComponent,
     ProfileComponent,
-    WorkoutsComponent
+    WorkoutsComponent,
+    RanglistComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -36,6 +38,7 @@ import { WorkoutsComponent } from './workouts/workouts.component';
       { path: 'profile', component: ProfileComponent },
       { path: 'workouts', component: WorkoutsComponent },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+      {path: 'ranglist', component: RanglistComponent},
     ])
   ],
   providers: [
