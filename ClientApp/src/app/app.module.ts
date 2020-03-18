@@ -14,6 +14,7 @@ import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { ProfileComponent } from './profile/profile.component';
 import { WorkoutsComponent } from './workouts/workouts.component';
+import { RanglistComponent } from './ranglist/ranglist.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { combineAll } from 'rxjs/operators';
 import { MilestonesComponent } from './milestones/milestones.component';
@@ -27,6 +28,7 @@ import { MilestonesComponent } from './milestones/milestones.component';
     FetchDataComponent,
     ProfileComponent,
     WorkoutsComponent,
+    RanglistComponent
     StatisticsComponent
     MilestonesComponent
   ],
@@ -42,6 +44,7 @@ import { MilestonesComponent } from './milestones/milestones.component';
       { path: 'workouts', component: WorkoutsComponent },
       { path: 'statistics', component: StatisticsComponent},
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+      {path: 'ranglist', component: RanglistComponent},
       { path: 'milestones', component: MilestonesComponent},
     ])
   ],
