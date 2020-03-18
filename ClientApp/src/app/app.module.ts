@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -15,6 +15,9 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
 import { ProfileComponent } from './profile/profile.component';
 import { WorkoutsComponent } from './workouts/workouts.component';
 import { RanglistComponent } from './ranglist/ranglist.component';
+import { StatisticsComponent } from './statistics/statistics.component';
+import { combineAll } from 'rxjs/operators';
+import { MilestonesComponent } from './milestones/milestones.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,8 @@ import { RanglistComponent } from './ranglist/ranglist.component';
     ProfileComponent,
     WorkoutsComponent,
     RanglistComponent
+    StatisticsComponent
+    MilestonesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -37,8 +42,10 @@ import { RanglistComponent } from './ranglist/ranglist.component';
       { path: 'counter', component: CounterComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'workouts', component: WorkoutsComponent },
+      { path: 'statistics', component: StatisticsComponent},
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
       {path: 'ranglist', component: RanglistComponent},
+      { path: 'milestones', component: MilestonesComponent},
     ])
   ],
   providers: [
