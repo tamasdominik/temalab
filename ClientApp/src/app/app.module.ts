@@ -16,6 +16,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { WorkoutsComponent } from './workouts/workouts.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { combineAll } from 'rxjs/operators';
+import { MilestonesComponent } from './milestones/milestones.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { combineAll } from 'rxjs/operators';
     ProfileComponent,
     WorkoutsComponent,
     StatisticsComponent
+    MilestonesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -40,6 +42,7 @@ import { combineAll } from 'rxjs/operators';
       { path: 'workouts', component: WorkoutsComponent },
       { path: 'statistics', component: StatisticsComponent},
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+      { path: 'milestones', component: MilestonesComponent},
     ])
   ],
   providers: [
