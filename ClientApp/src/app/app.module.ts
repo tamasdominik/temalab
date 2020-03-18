@@ -28,8 +28,8 @@ import { MilestonesComponent } from './milestones/milestones.component';
     FetchDataComponent,
     ProfileComponent,
     WorkoutsComponent,
-    RanglistComponent
-    StatisticsComponent
+    RanglistComponent,
+    StatisticsComponent,
     MilestonesComponent
   ],
   imports: [
