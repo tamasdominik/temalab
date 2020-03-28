@@ -1,6 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Provide sufficient contrast against white background */
+body{
+  background-image: url("http://getwallpapers.com/wallpaper/full/8/2/c/200229.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  color: whitesmoke;
+}
+
 a {
   color: #0366d6;
 }
