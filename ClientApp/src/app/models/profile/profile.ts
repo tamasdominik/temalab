@@ -1,8 +1,8 @@
 export class Profile {
     ID : number;
-    UserName : String;
-    Gender : String;
+    UserName : string;
+    Gender : string;
     DateOfBirth : Date;
     Height : number;
-    Weight : number;
+    Weight : number; 
 }

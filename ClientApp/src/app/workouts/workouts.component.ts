@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { WorkoutService } from '../services/workout.service';
+import { Workout } from '../models/workout/workout';
+import { Exercise } from '../models/Exercise/exercise';
 
 @Component({
   selector: 'app-workouts',
@@ -7,9 +11,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkoutsComponent implements OnInit {
 
-  constructor() { }
+  proba : string[];
+  constructor(private workoutService : WorkoutService) {}
 
   ngOnInit() {
+    this.proba.push("fhuzdf");
+    this.proba.push("fhudhfush");
   }
-
 }
