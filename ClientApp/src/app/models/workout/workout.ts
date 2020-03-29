@@ -1,6 +1,9 @@
 import { Exercise } from "../Exercise/exercise";
 
 export class Workout {
-    id : number;
-    name : string;
+    workoutName : string;
+    exerciseName : string;
+    difficulty : number;
+    set : number;
+    reps : number;
 }

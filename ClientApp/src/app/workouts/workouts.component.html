@@ -1,4 +1,117 @@
-<div *ngFor="let workout of Workouts">
-    <div>{{workout.name}}</div>
-    <div>{{workout.id}}</div>
-</div>
+<div id="accordion" *ngFor="let workout of Workouts">
+
+    <div class="card">
+      <div class="card-header">
+        <a class="card-link" data-toggle="collapse" href="#w1">
+          {{workout.workoutName}}
+        </a>
+        <button type="button" class="btn btn-success" style="float: right;">Completed</button>
+      </div>
+      <div id="w1" class="collapse" data-parent="#accordion">
+        <div class="card-body" style="color: black;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Exercise name</th>
+                <th>Difficulty</th>
+                <th>Reps</th>
+                <th>Calories</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Exercise 1</td>
+                <td>****</td>
+                <td>3x20</td>
+                <td>300</td>
+              </tr>
+              <tr>
+                <td>Exercise 2</td>
+                <td>****</td>
+                <td>3x20</td>
+                <td>300</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  
+    <div class="card">
+        <div class="card-header">
+          <a class="card-link" data-toggle="collapse" href="#customworkout">
+            Custom Workout
+          </a>
+          <button type="button" class="btn btn-danger" style="float: right;">Delete</button>
+          <button type="button" class="btn btn-success" style="float: right;">Completed</button>
+        </div>
+        <div id="customworkout" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>Exercise name</th>
+                    <th>Difficulty</th>
+                    <th>Reps</th>
+                    <th>Calories</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Exercise 1</td>
+                    <td>****</td>
+                    <td>3x20</td>
+                    <td>300</td>
+                  </tr>
+
+                </tbody>
+              </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <a class="card-link" data-toggle="collapse" href="#addacustom">
+            Add a custom workout
+          </a>
+          <button type="button" class="btn btn-info" style="float: right;">Save</button>
+        </div>
+        <div id="addacustom" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>Exercise name</th>
+                    <th>Difficulty</th>
+                    <th>Reps</th>
+                    <th>Calories</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                        <div class="dropdown">
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+                              Choose excercise...
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="#">Link 1</a>
+                              <a class="dropdown-item" href="#">Link 2</a>
+                              <a class="dropdown-item" href="#">Link 3</a>
+                            </div>
+                          </div>
+                    </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                  </tr>
+
+                </tbody>
+              </table>
+          </div>
+        </div>
+      </div>
+
+  </div>
