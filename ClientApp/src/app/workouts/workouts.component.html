@@ -1,13 +1,13 @@
-<div id="accordion" *ngFor="let workout of Workouts">
+<div id="accordion">
 
-    <div class="card">
+    <div class="card" *ngFor="let workout of Workouts; let i = index">
       <div class="card-header">
-        <a class="card-link" data-toggle="collapse" href="#w1">
+        <a class="card-link" data-toggle="collapse" href="#w{{i+1}}}">
           {{workout.workoutName}}
         </a>
         <button type="button" class="btn btn-success" style="float: right;">Completed</button>
       </div>
-      <div id="w1" class="collapse" data-parent="#accordion">
+      <div id="w{{i}}" class="collapse" data-parent="#accordion">
         <div class="card-body" style="color: black;">
           <table class="table">
             <thead>
@@ -19,17 +19,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Exercise 1</td>
-                <td>****</td>
-                <td>3x20</td>
-                <td>300</td>
-              </tr>
-              <tr>
-                <td>Exercise 2</td>
-                <td>****</td>
-                <td>3x20</td>
-                <td>300</td>
+              <tr *ngFor="let e of Workouts">
+                    <td>{{e.exercise.Name}}</td>
+                    <td>{{e.exercise.Difficulty}}</td>
+                    <td>{{e.exercise.Set}} x {{e.exercise.Reps}}</td>
+                    <td>cal</td>
               </tr>
             </tbody>
           </table>
