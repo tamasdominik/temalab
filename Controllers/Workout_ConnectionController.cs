@@ -23,23 +23,24 @@ namespace Temalab_Fitness.Controllers
 
         // GET: api/Workout_Connection
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Workout_Connection>>> GetWorkout_Connection()
+        public async Task<ActionResult<IEnumerable<Object>>> GetWorkout_Connection()
         {
-            return await _context.Workout_Connection.ToListAsync();
+            var workouts = _context.Workout_Connection.Select(w => new {w.Profile_ID.UserName, WorkoutName = w.Workout_ID.Name, ExerciseName= w.Exercise.Name, w.Exercise.Difficulty, w.Exercise.Set, w.Exercise.Reps});
+            return await workouts.ToListAsync();
         }
 
         // GET: api/Workout_Connection/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Workout_Connection>> GetWorkout_Connection(int id)
+        public async Task<ActionResult<IEnumerable<Object>>> GetWorkout_Connection(int id)
         {
-            var workout_Connection = await _context.Workout_Connection.FindAsync(id);
+            var workouts = _context.Workout_Connection.Where(w => w.Profile_ID.ID == id).Select(w => new {WorkoutName = w.Workout_ID.Name, ExerciseName = w.Exercise.Name, w.Exercise.Difficulty, w.Exercise.Set, w.Exercise.Reps});
 
-            if (workout_Connection == null)
+            if (workouts == null)
             {
                 return NotFound();
             }
 
-            return workout_Connection;
+            return await workouts.ToListAsync();
         }
 
         // PUT: api/Workout_Connection/5
