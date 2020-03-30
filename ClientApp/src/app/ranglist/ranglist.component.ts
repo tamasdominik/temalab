@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Ranglist } from '../models/ranglist/ranglist';
+import { RanglistService } from '../services/ranglist.service';
 
 @Component({
   selector: 'app-ranglist',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RanglistComponent implements OnInit {
 
-  constructor() { }
+  ranglist : Ranglist[];
+  constructor(private ranglistService : RanglistService) { }
 
   ngOnInit() {
+    this.ranglistService.getAllRanks().subscribe(data => {this.ranglist = data;})
   }
 
 }
