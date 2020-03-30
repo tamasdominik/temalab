@@ -13,3 +13,12 @@ button {
 input[type="date"] {
     margin-top: 8px;
 }
+
+.greybgcolor{
+    background-color: rgb(58, 57, 57);
+    color: whitesmoke;
+}
+.lightgreybgcolor{
+    background-color: grey;
+    color: whitesmoke;
+}

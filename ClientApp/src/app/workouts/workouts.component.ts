@@ -18,4 +18,6 @@ export class WorkoutsComponent implements OnInit {
       this.Workouts = data;
     })
   }
+
+  
 }

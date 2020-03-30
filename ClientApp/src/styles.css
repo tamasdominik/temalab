@@ -2,7 +2,7 @@
 
 /* Provide sufficient contrast against white background */
 body{
-  background-image: url("http://getwallpapers.com/wallpaper/full/8/2/c/200229.jpg");
+  background-image: url("assets/img/background.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
