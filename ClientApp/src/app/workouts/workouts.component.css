@@ -1,0 +1,19 @@
+.greybgcolor{
+    background-color: rgb(92, 89, 89);
+    color: whitesmoke;
+}
+.lightgreybgcolor{
+    background-color: grey;
+    color: whitesmoke;
+}
+
+.lightgreybgcolor span:hover{
+    background-color: rgb(88, 88, 88);
+}
+.card-link{
+    padding: 15px;
+    color: rgb(190, 248, 248);
+}
+.card-link:hover{
+    color: black;
+}

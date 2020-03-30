@@ -1,7 +1,7 @@
 export class Exercise {
-    ID : number;
-    Name : string;
-    Difficulty : number;
-    Set : number;
-    Reps : number;
+    id : number;
+    name : string;
+    difficulty : number;
+    set : number;
+    reps : number;
 }
