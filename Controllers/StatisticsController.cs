@@ -12,38 +12,38 @@ namespace Temalab_Fitness.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Workout_ConnectionController : ControllerBase
+    public class StatisticsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-         
-        public Workout_ConnectionController(ApplicationDbContext context)
+
+        public StatisticsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Workout_Connection
+        // GET: api/Statistics
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Object>>> GetWorkout_Connection()
         {
-            var workouts = _context.Workout_Connection.Select(w => new {w.Profile_ID.UserName, WorkoutName = w.Workout_ID.Name, ExerciseName= w.Exercise.Name, w.Exercise.Difficulty, w.Exercise.Set, w.Exercise.Reps});
-            return await workouts.ToListAsync();
+            var statistics = _context.Workout_Connection.Select(s=> new { s.Exercise.Name, s.Counter});
+            return await statistics.ToListAsync();
         }
 
-        // GET: api/Workout_Connection/5
+        // GET: api/Statistics/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Object>>> GetWorkout_Connection(int id)
+        public async Task<ActionResult<Object>> GetWorkout_Connection(int id)
         {
-            var workouts = _context.Workout_Connection.Where(w => w.Profile_ID.ID == id).Select(w => new {WorkoutName = w.Workout_ID.Name, w.Exercise});
+            var stats = _context.Workout_Connection.Where(s=>s.Profile_ID.ID ==id).Select(s=> new {s.Exercise.Name, s.Counter });
 
-            if (workouts == null)
+            if (stats == null)
             {
                 return NotFound();
             }
 
-            return await workouts.ToListAsync();
+            return await stats.ToListAsync();
         }
 
-        // PUT: api/Workout_Connection/5
+        // PUT: api/Statistics/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
@@ -75,7 +75,7 @@ namespace Temalab_Fitness.Controllers
             return NoContent();
         }
 
-        // POST: api/Workout_Connection
+        // POST: api/Statistics
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
@@ -87,7 +87,7 @@ namespace Temalab_Fitness.Controllers
             return CreatedAtAction("GetWorkout_Connection", new { id = workout_Connection.ID }, workout_Connection);
         }
 
-        // DELETE: api/Workout_Connection/5
+        // DELETE: api/Statistics/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Workout_Connection>> DeleteWorkout_Connection(int id)
         {
