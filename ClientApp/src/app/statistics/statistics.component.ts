@@ -19,4 +19,12 @@ export class StatisticsComponent implements OnInit {
     })
   }
 
+  SumAll(){
+    var sum :number = 0;
+    for(let i=0; i<this.statistics.length; i++){
+      sum +=this.statistics[i].burntcalories;
+    }
+    return sum;
+  }
+
 }

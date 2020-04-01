@@ -25,7 +25,7 @@ namespace Temalab_Fitness.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Object>>> GetWorkout_Connection()
         {
-            var statistics = _context.Workout_Connection.Select(s=> new { s.Exercise.Name, s.Counter});
+            var statistics = _context.Workout_Connection.Select(s=> new { s.Exercise.Name, s.Counter, burntcalories = (s.Exercise.Difficulty * s.Profile_ID.Height * s.Profile_ID.Weight * s.Counter) / 500 });
             return await statistics.ToListAsync();
         }
 
@@ -33,7 +33,7 @@ namespace Temalab_Fitness.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Object>> GetWorkout_Connection(int id)
         {
-            var stats = _context.Workout_Connection.Where(s=>s.Profile_ID.ID ==id).Select(s=> new {s.Exercise.Name, s.Counter });
+            var stats = _context.Workout_Connection.Where(s=>s.Profile_ID.ID ==id).Select(s=> new {s.Exercise.Name, s.Counter, burntcalories = (s.Exercise.Difficulty * s.Profile_ID.Height * s.Profile_ID.Weight * s.Counter) / 500 });
 
             if (stats == null)
             {
