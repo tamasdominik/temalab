@@ -23,9 +23,10 @@ namespace Temalab_Fitness.Controllers
 
         // GET: api/Exercises
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Exercise>>> GetExercise()
+        public async Task<ActionResult<IEnumerable<Object>>> GetExercise()
         {
-            return await _context.Exercise.ToListAsync();
+            var exercises = _context.Exercise.Select(e=> new { e.Name, e.Difficulty,e.Set,e.Reps });
+            return await exercises.ToListAsync();
         }
 
         // GET: api/Exercises/5

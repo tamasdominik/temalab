@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <title>Font Awesome Icons</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-</head>
-<body backgcolor= #E6E6FA>
-  <h1>Hall of Fame</h1>
-  <table style="width:60%">
-    <tr>
-      <th>Username:</th>
-      <th>Burnt Calories:</th>
-    </tr>
-    <tr *ngFor="let rang of ranglist; index as i">
-      <td>{{ i+1 + ". " + rang.userName}}
-      </td>
-      <td>{{rang.burntCalories}}.</td>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+      integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  </head>
+  
+  <body backgcolor=#E6E6FA>
+    <h1>Hall of Fame</h1>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr class="headers">
+          <th scope="col">UserName</th>
+          <th scope="col">Burnt Calories</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rang of ranglist; index as i">
+          <td>{{ i+1 + ". " + rang.userName}}
+          </td>
+          <td>{{rang.burntCalories}}.</td>
+      </tbody>
     </table>
   </body>
+
 </html>
