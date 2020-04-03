@@ -19,6 +19,9 @@ export class WorkoutsComponent implements OnInit {
 
     })
   }
+  // getExercises(w : WorkoutWrapper){
+  //   return w.Exercises
+  // }
   ParseWorkouts(W : Workout[]){
     let WorkoutName : string = ""
     let Exercises : Exercise[] = []
