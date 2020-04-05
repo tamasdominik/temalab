@@ -23,23 +23,24 @@ namespace Temalab_Fitness.Controllers
 
         // GET: api/MileStones
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MileStone>>> GetMileStone()
+        public async Task<ActionResult<IEnumerable<Object>>> GetMileStone()
         {
-            return await _context.MileStone.ToListAsync();
+            var milestones = _context.MileStone.Select(m => new { m.Name, m.Goal });
+            return await milestones.ToListAsync();
         }
 
         // GET: api/MileStones/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<MileStone>> GetMileStone(int id)
+        public async Task<ActionResult<Object>> GetMileStone(int id)
         {
-            var mileStone = await _context.MileStone.FindAsync(id);
+            var milestones = _context.MileStone_Connection.Where(m => m.Profile.ID == id).Select(m => new { m.MileStone_ID.Name, m.MileStone_ID.Goal});
 
-            if (mileStone == null)
+            if (milestones == null)
             {
                 return NotFound();
             }
 
-            return mileStone;
+            return await milestones.ToListAsync();
         }
 
         // PUT: api/MileStones/5
