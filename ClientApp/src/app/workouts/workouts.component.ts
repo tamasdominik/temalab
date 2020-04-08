@@ -11,17 +11,14 @@ import { Exercise } from '../models/Exercise/exercise';
 export class WorkoutsComponent implements OnInit {
 
   Workouts : WorkoutWrapper[] = []
+  Exercises : Exercise [] = []
   constructor(private workoutService : WorkoutService) {}
 
   ngOnInit() {
       this.workoutService.findAll().subscribe(data => {
       this.ParseWorkouts(data);
-
     })
   }
-  // getExercises(w : WorkoutWrapper){
-  //   return w.Exercises
-  // }
   ParseWorkouts(W : Workout[]){
     let WorkoutName : string = ""
     let Exercises : Exercise[] = []
@@ -51,7 +48,7 @@ class WorkoutWrapper{
   Exercises : Exercise[] = []
   constructor (w : string, e : Exercise[]){
     this.WorkoutName = w
-    this.Exercises.concat(e)
+    this.Exercises = e
   }
 }
 
