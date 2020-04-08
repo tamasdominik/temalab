@@ -7,7 +7,7 @@
                     <div class="card-body">
                       <p class="card-text">Pushup King: Do 1000 pushups</p>
                     </div>
-                    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="100" aria-valuemax="100">{{GetPercentage(0)}}%</div>
+                    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="100" aria-valuemax="100">{{Milestones[0].counter*100/Milestones[0].goal}}%</div>
                 </div>
             </td>
             <td>
@@ -16,7 +16,7 @@
                     <div class="card-body">
                       <p class="card-text">Situp King: Do 1000 situps</p>
                     </div>
-                    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{Milestones[1].counter*100/Milestones[1].goal}}%</div>
                   </div>
             </td>
             <td>
@@ -25,7 +25,7 @@
                     <div class="card-body">
                       <p class="card-text">Biceps pro</p>
                     </div>
-                    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{Milestones[2].counter*100/Milestones[2].goal}}%</div>
                   </div>
             </td>
         </tr>
