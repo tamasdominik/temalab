@@ -35,7 +35,8 @@ namespace Temalab_Fitness.Controllers
         {
             var workouts = _context.Workout_Connection
                 .Where(w => w.Profile_ID.ID == id)
-                .Select(w => new { WorkoutName = w.Workout_ID.Name, w.Exercise });
+                .Select(w => new { WorkoutName = w.Workout_ID.Name, w.Exercise })
+                .OrderBy(w => w.WorkoutName);
 
             if (workouts == null)
             {
