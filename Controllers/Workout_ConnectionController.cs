@@ -33,7 +33,10 @@ namespace Temalab_Fitness.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<Object>>> GetWorkout_Connection(int id)
         {
-            var workouts = _context.Workout_Connection.Where(w => w.Profile_ID.ID == id).Select(w => new {WorkoutName = w.Workout_ID.Name, w.Exercise});
+            var workouts = _context.Workout_Connection
+                .Where(w => w.Profile_ID.ID == id)
+                .Select(w => new { WorkoutName = w.Workout_ID.Name, w.Exercise })
+                .OrderBy(w => w.WorkoutName);
 
             if (workouts == null)
             {

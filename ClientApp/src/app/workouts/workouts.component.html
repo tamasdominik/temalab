@@ -1,16 +1,48 @@
+<!-- <div>{{PrintWorkouts()}}</div> -->
 <div id="accordion">
 
-    <div class="card greybgcolor" *ngFor="let workout of Workouts; index as i">
-      <div class="card-header">
-        <a class="card-link" data-toggle="collapse" href="#w{{i}}">
-          {{workout.workoutName}}
-        </a>
-        <button type="button" class="btn btn-danger" style="float: right;">Delete</button>
-        <button type="button" class="btn btn-success" style="float: right;">Completed</button>
+  <div class="card greybgcolor" *ngFor="let workout of Workouts; index as i">
+    <div class="card-header">
+      <a class="card-link" data-toggle="collapse" href="#w{{i}}">
+        {{workout.WorkoutName}}
+        <!-- {{printEx(workout)}} -->
+      </a>
+      <button type="button" class="btn btn-danger" style="float: right;">Delete</button>
+      <button type="button" class="btn btn-success" style="float: right;">Completed</button>
+    </div>
+    <div id="w{{i}}" class="collapse " data-parent="#accordion">
+      <div class="card-body" style="color: black;">
+        <table class="table greybgcolor">
+          <thead>
+            <tr>
+              <th>Exercise name</th>
+              <th>Difficulty</th>
+              <th>Reps</th>
+              <th>Calories</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let exercise of workout.Exercises">
+              <td>{{exercise.name}}</td>
+              <td>{{exercise.difficulty}}</td>
+              <td>{{exercise.set}} x {{exercise.reps}}</td>
+              <td>cal</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div id="w{{i}}" class="collapse" data-parent="#accordion">
-        <div class="card-body" style="color: black;">
-          <table class="table greybgcolor">
+    </div>
+  </div>
+  <div class="card greybgcolor">
+    <div class="card-header">
+      <a class="card-link" data-toggle="collapse" href="#addacustom">
+        Add a custom workout
+      </a>
+      <button type="button" class="btn btn-info" style="float: right;">Save</button>
+    </div>
+    <div id="addacustom" class="collapse" data-parent="#accordion">
+      <div class="card-body">
+        <table class="table greybgcolor">
             <thead>
               <tr>
                 <th>Exercise name</th>
@@ -20,61 +52,27 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let e of Workouts">
-                    <td>{{e.exercise.name}}</td>
-                    <td>{{e.exercise.difficulty}}</td>
-                    <td>{{e.exercise.set}} x {{e.exercise.reps}}</td>
-                    <td>cal</td>
+              <tr>
+                <td>
+                    <div class="dropdown">
+                        <button type="button" class="btn dropdown-toggle lightgreybgcolor" data-toggle="dropdown">
+                          Choose excercise...
+                        </button>
+                        <!-- ngFor excercise -->
+                        <div class="dropdown-menu lightgreybgcolor">
+                          <span class="dropdown-item" href="#">exercise 1</span>
+                          <span class="dropdown-item" href="#">exercise 2</span>
+                          <span class="dropdown-item" href="#">exercise 3</span>
+                        </div>
+                      </div>
+                </td>
+                <td>exercise.name</td>
+                <td>exercise.difficulty </td>
+                <td>exercise.set x exercise.reps </td>
               </tr>
+
             </tbody>
           </table>
-
-        </div>
       </div>
     </div>
-
-      <div class="card greybgcolor">
-        <div class="card-header">
-          <a class="card-link" data-toggle="collapse" href="#addacustom">
-            Add a custom workout
-          </a>
-          <button type="button" class="btn btn-info" style="float: right;">Save</button>
-        </div>
-        <div id="addacustom" class="collapse" data-parent="#accordion">
-          <div class="card-body">
-            <table class="table greybgcolor">
-                <thead>
-                  <tr>
-                    <th>Exercise name</th>
-                    <th>Difficulty</th>
-                    <th>Reps</th>
-                    <th>Calories</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                        <div class="dropdown">
-                            <button type="button" class="btn dropdown-toggle lightgreybgcolor" data-toggle="dropdown">
-                              Choose excercise...
-                            </button>
-                            <!-- ngFor excercise -->
-                            <div class="dropdown-menu lightgreybgcolor">
-                              <span class="dropdown-item" href="#">exercise 1</span>
-                              <span class="dropdown-item" href="#">exercise 2</span>
-                              <span class="dropdown-item" href="#">exercise 3</span>
-                            </div>
-                          </div>
-                    </td>
-                    <td>exercise.name</td>
-                    <td>exercise.difficulty </td>
-                    <td>exercise.set x exercise.reps </td>
-                  </tr>
-
-                </tbody>
-              </table>
-          </div>
-        </div>
-      </div>
-
   </div>
