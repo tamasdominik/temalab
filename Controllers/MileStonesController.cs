@@ -23,23 +23,43 @@ namespace Temalab_Fitness.Controllers
 
         // GET: api/MileStones
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MileStone>>> GetMileStone()
+        public async Task<ActionResult<IEnumerable<Object>>> GetMileStone()
         {
-            return await _context.MileStone.ToListAsync();
+            var milestones = _context.MileStone.Select(m => new { m.Name, m.Goal });
+            return await milestones.ToListAsync();
         }
 
         // GET: api/MileStones/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<MileStone>> GetMileStone(int id)
+        public async Task<ActionResult<Object>> GetMileStone(int id)
         {
-            var mileStone = await _context.MileStone.FindAsync(id);
 
-            if (mileStone == null)
-            {
-                return NotFound();
-            }
+            //var milestones = _context.MileStone_Connection.Where(m => m.Profile.ID == id).
+            //    Join(_context.Workout_Connection
+            //    .Where(s => s.Profile_ID.ID == id)
+            //    .Select(s => new { s.Exercise.Name, s.Counter }));
+            //    );
+            //var ms2 = 
+            //    _context.MileStone_Connection.Join(
+            //    _context.Workout_Connection,
+            //    )
+            var ms3 =
+                from ms in _context.MileStone_Connection
+                join s in _context.Workout_Connection on ms.MileStone_ID.Name equals s.Exercise.Name
+                where ms.Profile.ID == id
+                orderby ms.MileStone_ID.ID
+                select new { ms.MileStone_ID.Name, s.Counter, ms.MileStone_ID.Goal };
+            
+            
+            
+            //var milestones = _context.MileStone_Connection.Where(m => m.Profile.ID == id).Select(m => new { m.MileStone_ID.Name, m.MileStone_ID.Goal });
 
-            return mileStone;
+            //if (milestones == null)
+            //{
+            //    return NotFound();
+            //}
+
+            return await ms3.ToListAsync();
         }
 
         // PUT: api/MileStones/5
