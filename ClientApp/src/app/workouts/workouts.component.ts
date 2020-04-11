@@ -24,12 +24,11 @@ export class WorkoutsComponent implements OnInit {
     this.exerciseService.findAll().subscribe(d => {
       this.allExercises = d;
     })
-    let custom = this.Workouts.find(c => c.WorkoutName=="Custom");
-    if(!custom){
+    let customfind = this.Workouts.find(c => c.WorkoutName=="Custom");
+    if(!customfind){
       let customExercise : Exercise[];
       let customWorkout : WorkoutWrapper = new WorkoutWrapper("Custom", customExercise);
       this.Workouts.push(customWorkout);
-      //workoutService.addWorkout
     }
     
   }
@@ -37,20 +36,11 @@ export class WorkoutsComponent implements OnInit {
   addExerciseToCustom(){ 
     //add a new custom workout if CustomWorkout does not exist
     let found = this.Workouts.find(c => c.WorkoutName=="Custom");
-    // let foundExercise=found.Exercises.find(e => e.name==eName);
-    // if(foundExercise){
-    //   found.Exercises.push(foundExercise);
-    alert("Siker");
-    
-    // }
-  
-    //add current exercise to custom
-    //service.update.subscribe
+    alert("Katt");
   
   }
   
   saveCustomButton(){
-    //service.update.subscribe
     alert("Mentve");
   }
 
