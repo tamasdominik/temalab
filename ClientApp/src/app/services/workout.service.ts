@@ -17,4 +17,12 @@ export class WorkoutService {
    public findAll(): Observable<Workout[]>{
      return this.http.get<Workout[]>(this.workoutURL);
    }
+
+   updateWorkout(w : Workout) : Observable<any>{
+    return this.http.put(this.workoutURL, w);
+  }
+
+  addWorkout(w: Workout) : Observable<Workout>{
+    return this.http.post<Workout>(this.workoutURL, w);
+  }
 }
