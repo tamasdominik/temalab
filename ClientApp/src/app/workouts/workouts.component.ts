@@ -14,34 +14,68 @@ export class WorkoutsComponent implements OnInit {
   Workouts : WorkoutWrapper[] = []
   Exercises : Exercise [] = []
   allExercises : Exercise[]; 
+  WorkoutsDB : Workout[];
 
   constructor(private workoutService : WorkoutService, private exerciseService : ExercisesService) {}
 
   ngOnInit() {
       this.workoutService.findAll().subscribe(data => {
-      this.ParseWorkouts(data);
-    })
+        this.WorkoutsDB = data;
+        this.ParseWorkouts(data);
+    });
     this.exerciseService.findAll().subscribe(d => {
       this.allExercises = d;
-    })
-    let customfind = this.Workouts.find(c => c.WorkoutName=="Custom");
-    if(!customfind){
-      let customExercise : Exercise[];
-      let customWorkout : WorkoutWrapper = new WorkoutWrapper("Custom", customExercise);
-      this.Workouts.push(customWorkout);
-    }
-    
+    });
   }
 
-  addExerciseToCustom(){ 
-    //add a new custom workout if CustomWorkout does not exist
-    let found = this.Workouts.find(c => c.WorkoutName=="Custom");
-    alert("Katt");
-  
+  searchInWorkoutsWr(s: string) : WorkoutWrapper{
+    for(let wwr of this.Workouts){
+      if(wwr.WorkoutName===s){return wwr;}
+    }
+  }
+
+  searchInWwrExercises(wwr : WorkoutWrapper, s :string) : boolean{
+    for(let e of wwr.Exercises){
+      if(e.name === s){return true;}
+      else{return false;}
+    }
+  }
+
+  searchInExercises(s : string) : Exercise{
+    for(let e of this.allExercises){
+      if(e.name===s){return e;}
+    }
+  }
+
+  addExerciseToCustom(s : string){ 
+    let custom = this.searchInWorkoutsWr('Custom');
+    if(!this.searchInWwrExercises(custom,s)){custom.Exercises.push(this.searchInExercises(s));} //egy gyak csak egyszer
+    
   }
   
   saveCustomButton(){
-    alert("Mentve");
+    this.SerializeWorkoutCustom(this.searchInWorkoutsWr('Custom'));
+     // service.addWorkout
+    alert("Még nincs mentve az adatbázisba!");
+  }
+
+  // SerializeWorkouts(workoutwr : WorkoutWrapper[]){
+  //     for(let w of workoutwr){
+  //       for(let e of w.Exercises){
+  //         let newWorkout = new Workout(w.WorkoutName, e);
+  //          this.WorkoutsDB.push(newWorkout);
+  //       }
+  //     }
+  // }
+
+  SerializeWorkoutCustom(wwr: WorkoutWrapper){
+    for(let e of wwr.Exercises){
+       if(!this.searchInWwrExercises(wwr, e.name)){
+        let newWorkout=new Workout(wwr.WorkoutName, e);
+        this.WorkoutsDB.push(newWorkout);
+       }
+   // service.addWorkout itt legyen...???
+    }
   }
 
   ParseWorkouts(W : Workout[]){

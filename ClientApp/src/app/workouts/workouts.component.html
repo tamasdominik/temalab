@@ -59,6 +59,15 @@
                 </tr>
               </thead>
               <tbody>
+                <!-- ha üres a custom exercises -->
+                <ng-container *ngIf="workout.Exercises.length == 0">
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </ng-container>
                 <tr *ngFor="let exercise of workout.Exercises">
                   <td>{{exercise.name}}</td>
                   <td>{{exercise.difficulty}}</td>
@@ -72,7 +81,7 @@
                 Choose excercise...
               </button>
               <div class="dropdown-menu lightgreybgcolor">
-                <span (click)="addExerciseToCustom()" class="dropdown-item" *ngFor="let e of allExercises">{{e.name}}</span>
+                <span (click)="addExerciseToCustom($event.target.innerHTML)" class="dropdown-item" *ngFor="let e of allExercises">{{e.name}}</span>
               </div>
             </div>
         </div>
