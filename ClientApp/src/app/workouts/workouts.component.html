@@ -46,6 +46,8 @@
           Add a custom workout
         </a>
         <button (click)="saveCustomButton()" type="button" class="btn btn-info" style="float: right;">Save</button>
+        <button type="button" class="btn btn-success" style="float: right;">Completed</button>
+        <!-- delete gomb -->
       </div>
       <div id="addacustom" class="collapse" data-parent="#accordion">
         <div class="card-body">
@@ -59,15 +61,6 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- ha üres a custom exercises -->
-                <ng-container *ngIf="workout.Exercises.length == 0">
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                </ng-container>
                 <tr *ngFor="let exercise of workout.Exercises">
                   <td>{{exercise.name}}</td>
                   <td>{{exercise.difficulty}}</td>

@@ -26,15 +26,25 @@ export class WorkoutsComponent implements OnInit {
     this.exerciseService.findAll().subscribe(d => {
       this.allExercises = d;
     });
-  }
 
-  searchInWorkoutsWr(s: string) : WorkoutWrapper{
-    for(let wwr of this.Workouts){
-      if(wwr.WorkoutName===s){return wwr;}
+    if(!this.Workouts.find(w => w.WorkoutName==='Custom')){
+      let customExercise : Exercise[] =[];
+      let custom = new WorkoutWrapper('Custom',customExercise);
+      this.Workouts.push(custom);
+      this.SerializeWorkoutCustom(custom);
     }
   }
 
-  searchInWwrExercises(wwr : WorkoutWrapper, s :string) : boolean{
+  searchInWorkouts(s: string) : number{
+    for (let i = 0; i < this.Workouts.length; i++){
+      if (this.Workouts[i].WorkoutName===s){
+        return i;
+      }
+      return undefined;
+    }
+  }
+
+  searchInWwrExercises(wwr : WorkoutWrapper, s :string) : boolean{ //ezzel lehet még gond a serialize-ben
     for(let e of wwr.Exercises){
       if(e.name === s){return true;}
       else{return false;}
@@ -47,14 +57,16 @@ export class WorkoutsComponent implements OnInit {
     }
   }
 
-  addExerciseToCustom(s : string){ 
-    let custom = this.searchInWorkoutsWr('Custom');
-    if(!this.searchInWwrExercises(custom,s)){custom.Exercises.push(this.searchInExercises(s));} //egy gyak csak egyszer
+  addExerciseToCustom(s : string){  //most még egy gyakorlat többször is belemegy
+    let iCustom = this.searchInWorkouts('Custom');
     
+    this.Workouts[iCustom].Exercises.push(this.searchInExercises(s));
+    this.SerializeWorkoutCustom(this.Workouts[iCustom]);
+
   }
   
   saveCustomButton(){
-    this.SerializeWorkoutCustom(this.searchInWorkoutsWr('Custom'));
+    this.SerializeWorkoutCustom(this.Workouts[this.searchInWorkouts('Custom')]);
      // service.addWorkout
     alert("Még nincs mentve az adatbázisba!");
   }
@@ -70,11 +82,10 @@ export class WorkoutsComponent implements OnInit {
 
   SerializeWorkoutCustom(wwr: WorkoutWrapper){
     for(let e of wwr.Exercises){
-       if(!this.searchInWwrExercises(wwr, e.name)){
+       if(!this.searchInWwrExercises(wwr, e.name)){ //itt lehet gond
         let newWorkout=new Workout(wwr.WorkoutName, e);
         this.WorkoutsDB.push(newWorkout);
        }
-   // service.addWorkout itt legyen...???
     }
   }
 
@@ -110,7 +121,6 @@ class WorkoutWrapper{
     this.WorkoutName = w
     this.Exercises = e
   }
-
 
 }
 
