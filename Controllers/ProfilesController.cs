@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,25 +23,28 @@ namespace Temalab_Fitness.Controllers
         }
 
         // GET: api/Profiles
+        [Authorize]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Profile>>> GetProfile()
+        public async Task<ActionResult<IEnumerable<Object>>> GetProfile()
         {
-            return await _context.Profile.ToListAsync();
+            var profiles =  _context.ApplicationUser.Select(p => new { p.Id});
+
+            return await profiles.ToListAsync();
         }
 
         // GET: api/Profiles/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Profile>> GetProfile(int id)
-        {
-            var profile = await _context.Profile.FindAsync(id);
+        //public async Task<ActionResult<Profile>> GetProfile(int id)
+        //{
+        //   // var profile = await _context.ApplicationUser.Where.Select();
 
-            if (profile == null)
-            {
-                return NotFound();
-            }
+        //    if (profile == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return profile;
-        }
+        //    return profile;
+        //}
 
         // PUT: api/Profiles/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for

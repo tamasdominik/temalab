@@ -8,5 +8,6 @@ namespace Temalab_Fitness.Models
 {
     public class ApplicationUser : IdentityUser
     {
+
     }
 }
