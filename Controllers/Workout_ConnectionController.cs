@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Temalab_Fitness.Data;
+using Temalab_Fitness.DTO;
 using Temalab_Fitness.Models;
 
 namespace Temalab_Fitness.Controllers
@@ -31,19 +32,16 @@ namespace Temalab_Fitness.Controllers
 
         // GET: api/Workout_Connection/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Object>>> GetWorkout_Connection(int id)
+        public async Task<ActionResult<IEnumerable<WorkoutDto>>> GetWorkout_Connection(int id)
         {
-            var workouts = _context.Workout_Connection
-                .Where(w => w.Profile_ID.ID == id)
-                .Select(w => new { WorkoutName = w.Workout_ID.Name, w.Exercise })
-                .OrderBy(w => w.WorkoutName);
+            var workouts = _context.Workout_Connection.Where(w => w.Profile_ID.ID == id).Select(w => new { WorkoutName = w.Workout_ID.Name, Exercise = w.Exercise }).ToList();
 
             if (workouts == null)
-            {
                 return NotFound();
-            }
 
-            return await workouts.ToListAsync();
+            var grouppedWorkouts = workouts.GroupBy(w => w.WorkoutName, w => w.Exercise, (key, g) => new WorkoutDto(key, g.ToList()));
+
+            return grouppedWorkouts.ToList();
         }
 
         // PUT: api/Workout_Connection/5

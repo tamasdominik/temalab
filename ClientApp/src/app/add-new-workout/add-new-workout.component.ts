@@ -32,7 +32,7 @@ export class AddNewWorkoutComponent implements OnInit {
   }
 
   addExerciseToCustom(s : string){ 
-  this.workout.exercises.push(this.searchInExercises(s));
+  this.workout.exercise.push(this.searchInExercises(s));
   }
   
   saveCustomButton(){
