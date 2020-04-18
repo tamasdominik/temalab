@@ -24,7 +24,7 @@ namespace Temalab_Fitness.Data
         public DbSet<Temalab_Fitness.Models.Workout> Workout { get; set; }
         public DbSet<Temalab_Fitness.Models.Workout_Connection> Workout_Connection { get; set; }
 
-        public DbSet<Temalab_Fitness.Models.ApplicationUser> ApplicationUser{ get; set; }
+     
 
     }
 }

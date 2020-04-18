@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Temalab_Fitness.Data;
@@ -11,32 +13,44 @@ using Temalab_Fitness.Models;
 
 namespace Temalab_Fitness.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Profiles")]
     [ApiController]
     public class ProfilesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ProfilesController(ApplicationDbContext context)
+        public ProfilesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
 
+        
         // GET: api/Profiles
-        [Authorize]
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Object>>> GetProfile()
+        public async Task<ActionResult<Object>> GetProfile()
         {
-            var profiles =  _context.ApplicationUser.Select(p => new { p.Id});
+            var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            return await profiles.ToListAsync();
+            var profile = _context.Users.Where(p => p.Id == userid).Select(pp => pp.UserName).First();
+
+            if (profile == null)
+            {
+                return NotFound();
+            }
+
+            return profile;
         }
-
+        
         // GET: api/Profiles/5
-        [HttpGet("{id}")]
-        //public async Task<ActionResult<Profile>> GetProfile(int id)
+        //[HttpGet]
+        //public async Task<ActionResult<Object>> GetProfile()
         //{
-        //   // var profile = await _context.ApplicationUser.Where.Select();
+        //    var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        //    var profile =  _context.Users.Where(p => p.Id == userid).Select(pp => pp.UserName).First();
 
         //    if (profile == null)
         //    {
