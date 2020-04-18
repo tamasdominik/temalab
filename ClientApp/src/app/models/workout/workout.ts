@@ -2,10 +2,10 @@ import { Exercise } from "../Exercise/exercise";
 
 export class Workout {
     workoutName : string;
-    exercise : Exercise;
+    exercises : Exercise[];
 
-    constructor(wn : string, e : Exercise){
+    constructor(wn : string){
         this.workoutName = wn;
-        this.exercise = e;
+        this.exercises = [];
     }
 }

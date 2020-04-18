@@ -1,0 +1,36 @@
+
+  <div class="card greybgcolor">
+    <div class="card-header">
+      <label >Add a new custom workout
+      <input [(ngModel)]="workout.workoutName" type="text"/>
+      </label>
+      <button (click)="saveCustomButton()" type="button" class="btn btn-info" style="float: right;">Save</button>
+    </div>
+      <div class="card-body">
+        <table class="table greybgcolor">
+            <thead>
+              <tr>
+                <th>Exercise name</th>
+                <th>Difficulty</th>
+                <th>Reps</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let exercise of workout.exercises">
+                <td>{{exercise.name}}</td>
+                <td>{{exercise.difficulty}}</td>
+                <td>{{exercise.set}} x {{exercise.reps}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="dropdown">
+            <button type="button" class="btn dropdown-toggle lightgreybgcolor" data-toggle="dropdown">
+              Choose excercise...
+            </button>
+            <div class="dropdown-menu lightgreybgcolor">
+              <span (click)="addExerciseToCustom($event.target.innerHTML)" class="dropdown-item" *ngFor="let e of allExercises">{{e.name}}</span>
+            </div>
+          </div>
+      </div>
+  </div>
+
