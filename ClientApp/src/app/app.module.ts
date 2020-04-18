@@ -16,6 +16,7 @@ import { RanglistComponent } from './ranglist/ranglist.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { combineAll } from 'rxjs/operators';
 import { MilestonesComponent } from './milestones/milestones.component';
+import { AddNewWorkoutComponent } from './add-new-workout/add-new-workout.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MilestonesComponent } from './milestones/milestones.component';
     WorkoutsComponent,
     RanglistComponent,
     StatisticsComponent,
-    MilestonesComponent
+    MilestonesComponent,
+    AddNewWorkoutComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -36,6 +38,7 @@ import { MilestonesComponent } from './milestones/milestones.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'profile', component: ProfileComponent },
+      { path: 'workouts/new', component: AddNewWorkoutComponent},
       { path: 'workouts', component: WorkoutsComponent },
       { path: 'statistics', component: StatisticsComponent},
       {path: 'ranglist', component: RanglistComponent},

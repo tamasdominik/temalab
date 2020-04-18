@@ -7,11 +7,11 @@
     <div class="form-row">
       <div class="form-group col">
         <label for="emailcim">Email address</label>
-        <input type="email" class="form-control lightgreybgcolor" aria-describedby="emailHelp">
+        <input [(ngModel)]="profile.Email" type="email" class="form-control lightgreybgcolor" aria-describedby="emailHelp">
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
       </div>
       <div class="form-group col">
-        <label for="InputUsername">Username</label>
+        <label [(ngModel)]="profile.UserName" for="InputUsername">Username</label>
         <input class="form-control lightgreybgcolor" aria-describedby="emailHelp">
       </div>
     </div>
@@ -19,7 +19,7 @@
     <div class="form-row">
       <div class="form-group col">
         <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control lightgreybgcolor">
+        <input [(ngModel)]="profile.Password" type="password" class="form-control lightgreybgcolor">
       </div>
       <div class="form-group col">
         <label for="exampleInputPassword2">Password Again</label>
@@ -30,30 +30,30 @@
     <div class="form-row">
       <div class="form-group col">
         <label class="form-group" for="genderselect">Gender</label>
-        <select class="custom-select mr-sm-2 lightgreybgcolor">
+        <select [(ngModel)]="profile.Gender" class="custom-select mr-sm-2 lightgreybgcolor">
           <option selected>Choose...</option>
-          <option value="1">Male</option>
-          <option value="2">Female</option>
+          <option value="M">Male</option>
+          <option value="F">Female</option>
         </select>
       </div>
       <div class="form-group col">
         <label for="dob">Date Of Birth</label>
-        <input type="date" class="form-control lightgreybgcolor">
+        <input [(ngModel)]="profile.DateOfBirth" type="date" class="form-control lightgreybgcolor">
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group col">
         <label for="heightrange">Height (*cm)</label>
-        <input class="form-control lightgreybgcolor" type="number" min="100" max="250" step="1" />
+        <input [(ngModel)]="profile.Height" class="form-control lightgreybgcolor" type="number" min="100" max="250" step="1" />
       </div>
       <div class="form-group col">
         <label for="weightrange">Weight (*kg)</label>
-        <input class="form-control lightgreybgcolor" type="number" min="30" max="200" step="1" />
+        <input [(ngModel)]="profile.Weight" class="form-control lightgreybgcolor" type="number" min="30" max="200" step="1" />
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button (click)="editProfile()" type="submit" class="btn btn-primary">Save</button>
 
   </form>
 
