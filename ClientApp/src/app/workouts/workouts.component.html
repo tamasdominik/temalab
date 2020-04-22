@@ -8,8 +8,8 @@
         {{workout.workoutName}}
         <!-- {{printEx(workout)}} -->
       </a>
-      <button type="button" class="btn btn-danger" style="float: right;">Delete</button>
-      <button type="button" class="btn btn-success" style="float: right;">Completed</button>
+      <button (click)="deleteWorkout()" type="button" class="btn btn-danger" style="float: right;">Delete</button>
+      <button (click)="completeWorkout()" type="button" class="btn btn-success" style="float: right;">Completed</button>
     </div>
     <div id="w{{i}}" class="collapse " data-parent="#accordion">
       <div class="card-body" style="color: black;">

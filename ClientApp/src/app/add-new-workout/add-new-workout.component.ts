@@ -3,7 +3,7 @@ import { WorkoutService } from '../services/workout.service';
 import { ExercisesService } from '../services/exercises.service';
 import { Exercise } from '../models/Exercise/exercise';
 import { Workout } from '../models/workout/workout';
-import { WorkoutsComponent } from '../workouts/workouts.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-new-workout',
@@ -16,7 +16,8 @@ export class AddNewWorkoutComponent implements OnInit {
   @Input() workout : Workout;
 
   constructor(private workoutService : WorkoutService, 
-    private exerciseService : ExercisesService) { }
+    private exerciseService : ExercisesService,
+    private router: Router) { }
 
   ngOnInit() {
   this.exerciseService.findAll().subscribe(d => {
@@ -36,9 +37,8 @@ export class AddNewWorkoutComponent implements OnInit {
   }
   
   saveCustomButton(){
-    this.workoutService.addWorkout(this.workout).subscribe(data => {
-      //this.workoutsComponent.Workouts.push(data);
-    });
+    this.workoutService.addWorkout(this.workout).subscribe();
+    this.router.navigateByUrl('/workouts');
   }
 
 }
