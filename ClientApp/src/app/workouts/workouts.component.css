@@ -13,7 +13,15 @@
 .card-link{
     padding: 15px;
     color: rgb(190, 248, 248);
+
 }
 .card-link:hover{
     color: black;
+}
+.card{
+    margin-bottom: 5px;
+}
+
+button{
+    margin-left: 5px;
 }

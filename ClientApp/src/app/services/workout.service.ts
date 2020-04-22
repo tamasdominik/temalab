@@ -18,23 +18,20 @@ export class WorkoutService {
      return this.http.get<Workout[]>(this.workoutURL);
    }
 
-   updateWorkout(w : Workout) : Observable<any>{
-    return this.http.put(this.workoutURL, w);
-  }
-
   addWorkout(w: Workout) : Observable<Workout>{
     return this.http.post<Workout>(this.workoutURL, w);
   }
 
-  // getWorkout(id: any) : Observable<Workout>{
-  //   const url = `${this.workoutURL}/${id}`;
-  //   return this.http.get<Workout>(url);
-  // }
-
-  // deleteWorkout(w: Wokout) : Observable<Workout>{
-  //   const id = w.id;
+  // deleteWorkout(w: Workout) : Observable<Workout>{
+  //   const id = w.Id;
   //   const url = `${this.workoutURL}/${id}`;
   //   return this.http.delete<Workout>(url);
+  // }
+
+  // completeWorkout(w: Workout){
+  //   const id = w.Id;
+  //   const url = `${this.workoutURL}/${id}`;
+  //   return this.http.put<Workout>(url);
   // }
 
 }
