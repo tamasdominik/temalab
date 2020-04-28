@@ -30,11 +30,12 @@ namespace Temalab_Fitness.Controllers
         // GET: api/Profiles
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<Object>> GetProfile()
         {
-            var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var profile = _context.Users.Where(p => p.Id == userid).Select(pp => pp.UserName).First();
+            var profile = _context.Users.Where(p => p.Id == id).Select(pp => new { pp.Id, pp.Email, pp.UserName, pp.Gender, pp.DateOfBirth, pp.Height, pp.Weight }).First();
 
             if (profile == null)
             {
@@ -61,8 +62,8 @@ namespace Temalab_Fitness.Controllers
         //}
 
         // PUT: api/Profiles/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProfile(int id, Profile profile)
         {
