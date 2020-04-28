@@ -75,7 +75,14 @@ namespace Temalab_Fitness.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(profile).State = EntityState.Modified;
+            ApplicationUser usr = _context.Users.Find(profile.Id);
+            usr.Email = profile.Email;
+            usr.UserName = profile.UserName;
+            usr.Gender = profile.Gender;
+            usr.DateOfBirth = profile.DateOfBirth;
+            usr.Height = profile.Height;
+            usr.Weight = profile.Weight;
+            _context.SaveChanges();
 
             try
             {
