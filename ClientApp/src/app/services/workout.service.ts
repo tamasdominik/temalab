@@ -11,7 +11,7 @@ export class WorkoutService {
   private workoutURL : string;
 
   constructor(private http : HttpClient) {
-    this.workoutURL = "https://localhost:44319/api/Workout_Connection/1";
+    this.workoutURL = "https://localhost:44319/api/Workout_Connection";
    }
 
    public findAll(): Observable<Workout[]>{
