@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,17 +25,13 @@ namespace Temalab_Fitness.Controllers
 
         // GET: api/Statistics
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Object>>> GetWorkout_Connection()
+        [Authorize]
+        public async Task<ActionResult<Object>> GetWorkout_Connection()
         {
-            var statistics = _context.Workout_Connection.Select(s=> new { s.Exercise.Name, s.Counter, burntcalories = (s.Exercise.Difficulty * s.Profile_ID.Height * s.Profile_ID.Weight * s.Counter) / 500 });
-            return await statistics.ToListAsync();
-        }
 
-        // GET: api/Statistics/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Object>> GetWorkout_Connection(int id)
-        {
-            var stats = _context.Workout_Connection.Where(s=>s.Profile_ID.ID ==id).Select(s=> new {s.Exercise.Name, s.Counter, burntcalories = (s.Exercise.Difficulty * s.Profile_ID.Height * s.Profile_ID.Weight * s.Counter) / 500 });
+            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var stats = _context.Workout_Connection.Where(s => s.Profile_ID.Id == id).Select(s => new { s.Exercise.Name, s.Counter, burntcalories = (s.Exercise.Difficulty * s.Profile_ID.Height * s.Profile_ID.Weight * s.Counter) / 500 });
 
             if (stats == null)
             {
@@ -42,6 +40,20 @@ namespace Temalab_Fitness.Controllers
 
             return await stats.ToListAsync();
         }
+
+        // GET: api/Statistics/5
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<Object>> GetWorkout_Connection(int id)
+        //{
+        //    var stats = _context.Workout_Connection.Where(s=>s.Profile_ID.ID ==id).Select(s=> new {s.Exercise.Name, s.Counter, burntcalories = (s.Exercise.Difficulty * s.Profile_ID.Height * s.Profile_ID.Weight * s.Counter) / 500 });
+
+        //    if (stats == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return await stats.ToListAsync();
+        //}
 
         // PUT: api/Statistics/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for

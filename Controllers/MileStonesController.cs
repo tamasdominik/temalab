@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,10 +25,20 @@ namespace Temalab_Fitness.Controllers
 
         // GET: api/MileStones
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Object>>> GetMileStone()
+        [Authorize]
+        public async Task<ActionResult<Object>> GetMileStone()
         {
-            var milestones = _context.MileStone.Select(m => new { m.Name, m.Goal });
-            return await milestones.ToListAsync();
+
+            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var ms3 =
+                from ms in _context.MileStone_Connection
+                join s in _context.Workout_Connection on ms.MileStone_ID.Name equals s.Exercise.Name
+                where ms.Profile.Id == id
+                orderby ms.MileStone_ID.ID
+                select new { ms.MileStone_ID.Name, s.Counter, ms.MileStone_ID.Goal };
+
+            return await ms3.ToListAsync();
         }
 
         // GET: api/MileStones/5
@@ -37,7 +49,7 @@ namespace Temalab_Fitness.Controllers
             var ms3 =
                 from ms in _context.MileStone_Connection
                 join s in _context.Workout_Connection on ms.MileStone_ID.Name equals s.Exercise.Name
-                where ms.Profile.ID == id
+                where ms.Profile.Id == id.ToString()
                 orderby ms.MileStone_ID.ID
                 select new { ms.MileStone_ID.Name, s.Counter, ms.MileStone_ID.Goal };
 

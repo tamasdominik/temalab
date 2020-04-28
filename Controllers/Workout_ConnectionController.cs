@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,17 +26,12 @@ namespace Temalab_Fitness.Controllers
 
         // GET: api/Workout_Connection
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Object>>> GetWorkout_Connection()
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<WorkoutDto>>> GetWorkout_Connection()
         {
-            var workouts = _context.Workout_Connection.Select(w => new {w.Profile_ID.UserName, WorkoutName = w.Workout_ID.Name, ExerciseName= w.Exercise.Name, w.Exercise.Difficulty, w.Exercise.Set, w.Exercise.Reps});
-            return await workouts.ToListAsync();
-        }
+            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        // GET: api/Workout_Connection/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<WorkoutDto>>> GetWorkout_Connection(int id)
-        {
-            var workouts = _context.Workout_Connection.Where(w => w.Profile_ID.ID == id).Select(w => new { WorkoutName = w.Workout_ID.Name, Exercise = w.Exercise }).ToList();
+            var workouts = _context.Workout_Connection.Where(w => w.Profile_ID.Id == id).Select(w => new { WorkoutName = w.Workout_ID.Name, Exercise = w.Exercise }).ToList();
 
             if (workouts == null)
                 return NotFound();
@@ -44,13 +41,30 @@ namespace Temalab_Fitness.Controllers
             return grouppedWorkouts.ToList();
         }
 
+        // GET: api/Workout_Connection/5
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<IEnumerable<WorkoutDto>>> GetWorkout_Connection(int id)
+        //{
+        //    var workouts = _context.Workout_Connection.Where(w => w.Profile_ID.Id == id).Select(w => new { WorkoutName = w.Workout_ID.Name, Exercise = w.Exercise }).ToList();
+
+        //    if (workouts == null)
+        //        return NotFound();
+
+        //    var grouppedWorkouts = workouts.GroupBy(w => w.WorkoutName, w => w.Exercise, (key, g) => new WorkoutDto(key, g.ToList()));
+
+        //    return grouppedWorkouts.ToList();
+        //}
+
         // PUT: api/Workout_Connection/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutWorkout_Connection(int id, Workout_Connection workout_Connection)
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> PutWorkout_Connection(Workout_Connection workout_Connection)
         {
-            if (id != workout_Connection.ID)
+            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (id != workout_Connection.ID.ToString())
             {
                 return BadRequest();
             }
@@ -63,15 +77,12 @@ namespace Temalab_Fitness.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!Workout_ConnectionExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+
+                return NotFound();
+
             }
+        
+            
 
             return NoContent();
         }

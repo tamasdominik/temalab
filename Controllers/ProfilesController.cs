@@ -64,10 +64,13 @@ namespace Temalab_Fitness.Controllers
         // PUT: api/Profiles/5
          // To protect from overposting attacks, please enable the specific properties you want to bind to, for
          // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutProfile(int id, Profile profile)
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> PutProfile( ApplicationUser profile)
         {
-            if (id != profile.ID)
+            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (id.ToString() != profile.Id)
             {
                 return BadRequest();
             }
@@ -80,14 +83,7 @@ namespace Temalab_Fitness.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProfileExists(id))
-                {
                     return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
             }
 
             return NoContent();
