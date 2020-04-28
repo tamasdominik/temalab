@@ -1,11 +1,10 @@
 export class Profile {
-    ID : number;
-    Password : string;
-    Email: string;
-    UserName : string;
-    Gender : string;
-    DateOfBirth : Date;
-    Height : number;
-    Weight : number; 
+    id : number;
+    email: string;
+    userName : string;
+    gender : string;
+    dateOfBirth : Date;
+    height : number;
+    weight : number; 
     
 }
