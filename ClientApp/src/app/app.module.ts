@@ -37,12 +37,12 @@ import { AddNewWorkoutComponent } from './add-new-workout/add-new-workout.compon
     ApiAuthorizationModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'profile', component: ProfileComponent },
-      { path: 'workouts/new', component: AddNewWorkoutComponent},
-      { path: 'workouts', component: WorkoutsComponent },
-      { path: 'statistics', component: StatisticsComponent},
-      {path: 'ranglist', component: RanglistComponent},
-      { path: 'milestones', component: MilestonesComponent},
+      { path: 'profile', component: ProfileComponent, canActivate: [AuthorizeGuard]},
+      { path: 'workouts/new', component: AddNewWorkoutComponent, canActivate: [AuthorizeGuard]},
+      { path: 'workouts', component: WorkoutsComponent, canActivate: [AuthorizeGuard] },
+      { path: 'statistics', component: StatisticsComponent, canActivate: [AuthorizeGuard]},
+      { path: 'ranglist', component: RanglistComponent, canActivate: [AuthorizeGuard]},
+      { path: 'milestones', component: MilestonesComponent, canActivate: [AuthorizeGuard]},
     ])
   ],
   providers: [
