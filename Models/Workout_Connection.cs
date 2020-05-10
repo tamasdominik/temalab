@@ -12,5 +12,6 @@ namespace Temalab_Fitness.Models
         public virtual Workout Workout_ID { get; set; }
         public virtual Exercise Exercise { get; set; }
         public int Counter { get; set; }
+
     }
 }

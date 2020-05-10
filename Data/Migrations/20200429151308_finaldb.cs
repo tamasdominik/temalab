@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Temalab_Fitness.Data.Migrations
 {
-    public partial class completedb : Migration
+    public partial class finaldb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,6 +51,30 @@ namespace Temalab_Fitness.Data.Migrations
                 oldType: "int",
                 oldNullable: true);
 
+            migrationBuilder.AddColumn<DateTime>(
+                name: "DateOfBirth",
+                table: "AspNetUsers",
+                nullable: false,
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+
+            migrationBuilder.AddColumn<string>(
+                name: "Gender",
+                table: "AspNetUsers",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<int>(
+                name: "Height",
+                table: "AspNetUsers",
+                nullable: false,
+                defaultValue: 0);
+
+            migrationBuilder.AddColumn<int>(
+                name: "Weight",
+                table: "AspNetUsers",
+                nullable: false,
+                defaultValue: 0);
+
             migrationBuilder.AddForeignKey(
                 name: "FK_MileStone_Connection_AspNetUsers_ProfileId",
                 table: "MileStone_Connection",
@@ -76,6 +101,22 @@ namespace Temalab_Fitness.Data.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_Workout_Connection_AspNetUsers_Profile_IDId",
                 table: "Workout_Connection");
+
+            migrationBuilder.DropColumn(
+                name: "DateOfBirth",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "Gender",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "Height",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "Weight",
+                table: "AspNetUsers");
 
             migrationBuilder.RenameColumn(
                 name: "Profile_IDId",

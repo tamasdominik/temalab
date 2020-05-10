@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Temalab_Fitness.Data;
 using Temalab_Fitness.Models;
 
@@ -26,9 +27,21 @@ namespace Temalab_Fitness.Controllers
         public async Task<ActionResult<IEnumerable<Object>>> GetWorkout_Connection()
         {
             var ranglist = _context.Workout_Connection.Select(r => new { r.Profile_ID.UserName, burntCalories = (r.Exercise.Difficulty * r.Profile_ID.Height * r.Profile_ID.Weight * r.Counter) / 500 }).Distinct();
-            //var grouppedRanglist = ranglist.Select(r => new { r.UserName, burntCalories = ranglist.Where(rr => rr.UserName == r.UserName).Sum(rr => rr.burntCalories)});
-            var orderedRanglist = ranglist.OrderByDescending(s => s.burntCalories);
-            return await orderedRanglist.ToListAsync();
+            Dictionary<string, int> keyValuePairs = new Dictionary<string, int>();
+            foreach (var item in ranglist)
+            {
+                if (!keyValuePairs.ContainsKey(item.UserName))
+                {
+                    keyValuePairs.Add(item.UserName, item.burntCalories);
+                }
+                else
+                {
+                    keyValuePairs[item.UserName] += item.burntCalories;
+                }
+            }
+            var result = keyValuePairs.Select(k => new { UserName = k.Key, burntCalories = k.Value }).ToList();
+
+            return result;
         }
 
         // GET: api/Ranglist/5

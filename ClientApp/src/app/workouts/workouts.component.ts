@@ -19,12 +19,13 @@ export class WorkoutsComponent implements OnInit {
     });
   }
 
-  deleteWorkout(workoutId){
-    //this.workoutService.deleteWorkout(workoutId).subscribe();
+  deleteWorkout(workoutId : number){
+  this.workoutService.deleteWorkout(workoutId).subscribe();
+  
   }
 
-  completeWorkout(workoutId){
-    //this.workoutService.completeWorkout(workoutId).subscribe();
+  completeWorkout(workoutId : number){
+    this.workoutService.completeWorkout(workoutId).subscribe();
   }
 
 }

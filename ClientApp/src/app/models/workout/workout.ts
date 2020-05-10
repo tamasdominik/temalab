@@ -1,6 +1,7 @@
 import { Exercise } from "../Exercise/exercise";
 
 export class Workout {
+    id : string;
     workoutName : string;
     exercise : Exercise[];
 
