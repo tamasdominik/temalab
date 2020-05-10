@@ -34,6 +34,25 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20200423083430_users.cs" />
+    <Compile Remove="Data\Migrations\20200423083430_users.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200423083938_user.cs" />
+    <Compile Remove="Data\Migrations\20200423083938_user.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200428143645_completedb.cs" />
+    <Compile Remove="Data\Migrations\20200428143645_completedb.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200429134035_finaldb.cs" />
+    <Compile Remove="Data\Migrations\20200429134035_finaldb.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200429134753_finaldatabase-IgnoreChanges.cs" />
+    <Compile Remove="Data\Migrations\20200429134753_finaldatabase-IgnoreChanges.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200429135705_[-IgnoreChanges].cs" />
+    <Compile Remove="Data\Migrations\20200429135705_[-IgnoreChanges].Designer.cs" />
+    <Compile Remove="Data\Migrations\20200429145253_finaldbase.cs" />
+    <Compile Remove="Data\Migrations\20200429145253_finaldbase.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200429145505_finaldbase.cs" />
+    <Compile Remove="Data\Migrations\20200429145505_finaldbase.Designer.cs" />
+  </ItemGroup>
+
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

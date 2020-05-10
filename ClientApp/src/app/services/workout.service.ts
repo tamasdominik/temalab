@@ -22,16 +22,15 @@ export class WorkoutService {
     return this.http.post<Workout>(this.workoutURL, w);
   }
 
-  // deleteWorkout(w: Workout) : Observable<Workout>{
-  //   const id = w.Id;
-  //   const url = `${this.workoutURL}/${id}`;
-  //   return this.http.delete<Workout>(url);
-  // }
+   deleteWorkout(id : number) : Observable<Workout>{
+     const url = `${this.workoutURL}/${id}`;
+     return this.http.delete<Workout>(url);
+   }
 
-  // completeWorkout(w: Workout){
-  //   const id = w.Id;
-  //   const url = `${this.workoutURL}/${id}`;
-  //   return this.http.put<Workout>(url);
-  // }
+   completeWorkout(w: Workout){
+     const id = w.id;
+     const url = `${this.workoutURL}/${id}`;
+     return this.http.put<Workout>(url, w);
+   }
 
 }

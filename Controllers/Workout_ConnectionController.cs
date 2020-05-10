@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -31,12 +32,12 @@ namespace Temalab_Fitness.Controllers
         {
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var workouts = _context.Workout_Connection.Where(w => w.Profile_ID.Id == id).Select(w => new { WorkoutName = w.Workout_ID.Name, Exercise = w.Exercise }).ToList();
+            var workouts = await _context.Workout_Connection.Where(w => w.Profile_ID.Id == id).Select(w => new {id = w.Workout_ID.ID, WorkoutName = w.Workout_ID.Name, Exercise = w.Exercise }).ToListAsync();
 
             if (workouts == null)
                 return NotFound();
 
-            var grouppedWorkouts = workouts.GroupBy(w => w.WorkoutName, w => w.Exercise, (key, g) => new WorkoutDto(key, g.ToList()));
+            var grouppedWorkouts = workouts.GroupBy(w =>w.WorkoutName, w => new { w.Exercise, w.id }, ( key, g) => new WorkoutDto(key, g.ToList()));
 
             return grouppedWorkouts.ToList();
         }
@@ -68,7 +69,6 @@ namespace Temalab_Fitness.Controllers
             {
                 return BadRequest();
             }
-
             _context.Entry(workout_Connection).State = EntityState.Modified;
 
             try
@@ -77,13 +77,9 @@ namespace Temalab_Fitness.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-
                 return NotFound();
-
             }
         
-            
-
             return NoContent();
         }
 
@@ -91,30 +87,53 @@ namespace Temalab_Fitness.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Workout_Connection>> PostWorkout_Connection(Workout_Connection workout_Connection)
+        [Authorize]
+        public async Task<ActionResult<Workout_Connection>> PostWorkout_Connection([FromBody]WorkoutDto workout)
         {
-            _context.Workout_Connection.Add(workout_Connection);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetWorkout_Connection", new { id = workout_Connection.ID }, workout_Connection);
+            using (var ctx = _context)
+            {
+                var wo = new Workout();
+                wo.Name = workout.WorkoutName;
+
+                ctx.Workout.Add(wo);
+
+                var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                ApplicationUser usr = _context.Users.Find(id);
+
+                for (int i = 0; i < workout.Exercise.Count; i++)
+                {
+                    ctx.Workout_Connection.Add(new Workout_Connection()
+                    {
+                        Profile_ID = usr,
+                        Workout_ID = wo,
+                        Exercise = workout.Exercise[i]
+                    });
+                }
+                ctx.SaveChanges();
+            }
+            return Ok();
         }
 
         // DELETE: api/Workout_Connection/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Workout_Connection>> DeleteWorkout_Connection(int id)
         {
-            var workout_Connection = await _context.Workout_Connection.FindAsync(id);
-            if (workout_Connection == null)
+
+            using (var ctx = _context)
             {
-                return NotFound();
+                var wo = ctx.Workout_Connection.Where(w => w.Workout_ID.ID == id);
+                foreach (var i in wo)
+                {
+                    ctx.Workout_Connection.Remove(i);
+                }
+
+                ctx.Workout.Remove(ctx.Workout.FirstOrDefault(e => e.ID == id));
+                ctx.SaveChanges();
             }
+            return Ok();
 
-            _context.Workout_Connection.Remove(workout_Connection);
-            await _context.SaveChangesAsync();
-
-            return workout_Connection;
         }
-
         private bool Workout_ConnectionExists(int id)
         {
             return _context.Workout_Connection.Any(e => e.ID == id);

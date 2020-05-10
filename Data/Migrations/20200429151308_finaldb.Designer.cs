@@ -10,8 +10,8 @@ using Temalab_Fitness.Data;
 namespace Temalab_Fitness.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200423083938_user")]
-    partial class user
+    [Migration("20200429151308_finaldb")]
+    partial class finaldb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -371,14 +371,14 @@ namespace Temalab_Fitness.Data.Migrations
                     b.Property<int?>("MileStone_IDID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProfileID")
-                        .HasColumnType("int");
+                    b.Property<string>("ProfileId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
 
                     b.HasIndex("MileStone_IDID");
 
-                    b.HasIndex("ProfileID");
+                    b.HasIndex("ProfileId");
 
                     b.ToTable("MileStone_Connection");
                 });
@@ -439,8 +439,8 @@ namespace Temalab_Fitness.Data.Migrations
                     b.Property<int?>("ExerciseID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Profile_IDID")
-                        .HasColumnType("int");
+                    b.Property<string>("Profile_IDId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("Workout_IDID")
                         .HasColumnType("int");
@@ -449,7 +449,7 @@ namespace Temalab_Fitness.Data.Migrations
 
                     b.HasIndex("ExerciseID");
 
-                    b.HasIndex("Profile_IDID");
+                    b.HasIndex("Profile_IDId");
 
                     b.HasIndex("Workout_IDID");
 
@@ -513,9 +513,9 @@ namespace Temalab_Fitness.Data.Migrations
                         .WithMany()
                         .HasForeignKey("MileStone_IDID");
 
-                    b.HasOne("Temalab_Fitness.Models.Profile", "Profile")
+                    b.HasOne("Temalab_Fitness.Models.ApplicationUser", "Profile")
                         .WithMany()
-                        .HasForeignKey("ProfileID");
+                        .HasForeignKey("ProfileId");
                 });
 
             modelBuilder.Entity("Temalab_Fitness.Models.Workout_Connection", b =>
@@ -524,9 +524,9 @@ namespace Temalab_Fitness.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ExerciseID");
 
-                    b.HasOne("Temalab_Fitness.Models.Profile", "Profile_ID")
+                    b.HasOne("Temalab_Fitness.Models.ApplicationUser", "Profile_ID")
                         .WithMany()
-                        .HasForeignKey("Profile_IDID");
+                        .HasForeignKey("Profile_IDId");
 
                     b.HasOne("Temalab_Fitness.Models.Workout", "Workout_ID")
                         .WithMany()
