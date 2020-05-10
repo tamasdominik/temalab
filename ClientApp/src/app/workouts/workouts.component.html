@@ -10,7 +10,7 @@
         <!-- {{printEx(workout)}} -->
       </a>
       <button (click)="deleteWorkout(workout.id)" type="button" class="btn btn-danger" style="float: right;">Delete</button>
-      <button (click)="completeWorkout()" type="button" class="btn btn-success" style="float: right;">Completed</button>
+      <button (click)="completeWorkout(workout.id)" type="button" class="btn btn-success" style="float: right;">Completed</button>
     </div>
     <div id="w{{i}}" class="collapse " data-parent="#accordion">
       <div class="card-body" style="color: black;">

@@ -24,8 +24,8 @@ export class WorkoutsComponent implements OnInit {
   
   }
 
-  completeWorkout(workoutId){
-    //this.workoutService.completeWorkout(workoutId).subscribe();
+  completeWorkout(workoutId : number){
+    this.workoutService.completeWorkout(workoutId).subscribe();
   }
 
 }

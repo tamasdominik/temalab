@@ -36,10 +36,31 @@ namespace Temalab_Fitness.Controllers
 
             if (workouts == null)
                 return NotFound();
+            List<Exercise> exes = new List<Exercise>();
+            List<int> ids = new List<int>();
+            List<string> woNames = new List<string>();
+            List<WorkoutDto> result = new List<WorkoutDto>();
+            foreach (var item in workouts)
+            {
+                if (!ids.Contains(item.id))
+                {
+                    if (ids.Count != 0)
+                    {
+                        result.Add(new WorkoutDto(ids.Last(), woNames.Last(), exes));
+                    }
+                    exes = new List<Exercise>();
+                    ids.Add(item.id);
+                    woNames.Add(item.WorkoutName);
+                    exes.Add(item.Exercise);
+                }
+                else
+                {
+                    exes.Add(item.Exercise);
+                }
+            }
+            result.Add(new WorkoutDto(ids.Last(), woNames.Last(), exes));
 
-            var grouppedWorkouts = workouts.GroupBy(w =>w.WorkoutName, w => new { w.Exercise, w.id }, ( key, g) => new WorkoutDto(key, g.ToList()));
-
-            return grouppedWorkouts.ToList();
+            return result;
         }
 
         // GET: api/Workout_Connection/5
@@ -59,28 +80,18 @@ namespace Temalab_Fitness.Controllers
         // PUT: api/Workout_Connection/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut]
+        [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> PutWorkout_Connection(Workout_Connection workout_Connection)
+        public async Task<IActionResult> PutWorkout_Connection(int id)
         {
-            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            if (id != workout_Connection.ID.ToString())
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var workouts = await _context.Workout_Connection.Where(w => w.Workout_ID.ID == id).ToListAsync();
+            for (int i = 0; i< workouts.Count; i++)
             {
-                return BadRequest();
+                workouts[i].Counter++;
             }
-            _context.Entry(workout_Connection).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return NotFound();
-            }
-        
-            return NoContent();
+            await _context.SaveChangesAsync();
+            return Ok();
         }
 
         // POST: api/Workout_Connection
@@ -107,7 +118,7 @@ namespace Temalab_Fitness.Controllers
                     {
                         Profile_ID = usr,
                         Workout_ID = wo,
-                        Exercise = workout.Exercise[i]
+                        Exercise = _context.Exercise.Where(e => e.Name == workout.Exercise[i].Name).FirstOrDefault(),
                     });
                 }
                 ctx.SaveChanges();

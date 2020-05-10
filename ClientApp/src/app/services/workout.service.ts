@@ -27,10 +27,9 @@ export class WorkoutService {
      return this.http.delete<Workout>(url);
    }
 
-   completeWorkout(w: Workout){
-     const id = w.id;
+   completeWorkout(id : number){
      const url = `${this.workoutURL}/${id}`;
-     return this.http.put<Workout>(url, w);
+     return this.http.put<Workout>(url, id);
    }
 
 }
