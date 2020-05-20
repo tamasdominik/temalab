@@ -31,7 +31,7 @@ namespace Temalab_Fitness.Controllers
 
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var stats = _context.Workout_Connection.Where(s => s.Profile_ID.Id == id).Select(s => new { s.Exercise.Name, Counter = s.Counter * s.Exercise.Set * s.Exercise.Reps, burntcalories = (s.Exercise.Difficulty * s.Profile_ID.Height * s.Profile_ID.Weight) / 500 }).ToList();
+            var stats = await _context.Workout_Connection.Where(s => s.Profile_ID.Id == id).Select(s => new { s.Exercise.Name, Counter = s.Counter * s.Exercise.Set * s.Exercise.Reps, burntcalories = (s.Exercise.Difficulty * s.Profile_ID.Height * s.Profile_ID.Weight) / 500 }).ToListAsync();
 
             if (stats == null)
             {

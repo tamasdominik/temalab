@@ -97,11 +97,11 @@ namespace Temalab_Fitness.Controllers
                 ctx.Workout.Add(wo);
 
                 var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                ApplicationUser usr = _context.Users.Find(id);
+                ApplicationUser usr = await _context.Users.FindAsync(id);
 
                 for (int i = 0; i < workout.Exercise.Count; i++)
                 {
-                    Exercise ex = _context.Exercise.Where(e => e.Name == workout.Exercise[i].Name).FirstOrDefault();
+                    Exercise ex = await _context.Exercise.Where(e => e.Name == workout.Exercise[i].Name).FirstOrDefaultAsync();
 
                     ctx.Workout_Connection.Add(new Workout_Connection()
                     {
@@ -130,7 +130,7 @@ namespace Temalab_Fitness.Controllers
                 }
 
                 ctx.Workout.Remove(ctx.Workout.FirstOrDefault(e => e.ID == id));
-                ctx.SaveChanges();
+                await ctx.SaveChangesAsync();
             }
             return Ok();
 

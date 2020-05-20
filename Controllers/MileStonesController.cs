@@ -39,7 +39,7 @@ namespace Temalab_Fitness.Controllers
                 where ms.Profile.Id == id
                 orderby ms.MileStone_ID.ID
                 select new { ms.MileStone_ID.Name, s.Counter, ms.MileStone_ID.Goal };
-            var mileStones = milestones.ToList();
+            var mileStones = await milestones.ToListAsync();
             var exercises = new List<string>();
             var result = new List<MilestoneDTO>();
             foreach (var item in mileStones)

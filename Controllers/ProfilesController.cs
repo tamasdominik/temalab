@@ -35,7 +35,7 @@ namespace Temalab_Fitness.Controllers
         {
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var profile = _context.Users.Where(p => p.Id == id).Select(pp => new { pp.Id, pp.Email, pp.UserName, pp.Gender, pp.DateOfBirth, pp.Height, pp.Weight }).First();
+            var profile = await _context.Users.Where(p => p.Id == id).Select(pp => new { pp.Id, pp.Email, pp.UserName, pp.Gender, pp.DateOfBirth, pp.Height, pp.Weight }).FirstAsync();
 
             if (profile == null)
             {
