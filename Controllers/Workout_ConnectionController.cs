@@ -63,19 +63,6 @@ namespace Temalab_Fitness.Controllers
             return result;
         }
 
-        // GET: api/Workout_Connection/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<IEnumerable<WorkoutDto>>> GetWorkout_Connection(int id)
-        //{
-        //    var workouts = _context.Workout_Connection.Where(w => w.Profile_ID.Id == id).Select(w => new { WorkoutName = w.Workout_ID.Name, Exercise = w.Exercise }).ToList();
-
-        //    if (workouts == null)
-        //        return NotFound();
-
-        //    var grouppedWorkouts = workouts.GroupBy(w => w.WorkoutName, w => w.Exercise, (key, g) => new WorkoutDto(key, g.ToList()));
-
-        //    return grouppedWorkouts.ToList();
-        //}
 
         // PUT: api/Workout_Connection/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
@@ -114,11 +101,13 @@ namespace Temalab_Fitness.Controllers
 
                 for (int i = 0; i < workout.Exercise.Count; i++)
                 {
+                    Exercise ex = _context.Exercise.Where(e => e.Name == workout.Exercise[i].Name).FirstOrDefault();
+
                     ctx.Workout_Connection.Add(new Workout_Connection()
                     {
                         Profile_ID = usr,
                         Workout_ID = wo,
-                        Exercise = _context.Exercise.Where(e => e.Name == workout.Exercise[i].Name).FirstOrDefault(),
+                        Exercise = ex,
                     });
                 }
                 ctx.SaveChanges();

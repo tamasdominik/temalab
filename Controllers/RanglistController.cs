@@ -26,7 +26,7 @@ namespace Temalab_Fitness.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Object>>> GetWorkout_Connection()
         {
-            var ranglist = _context.Workout_Connection.Select(r => new { r.Profile_ID.UserName, burntCalories = (r.Exercise.Difficulty * r.Profile_ID.Height * r.Profile_ID.Weight * r.Counter) / 500 }).Distinct();
+            var ranglist = _context.Workout_Connection.Select(r => new { r.Profile_ID.UserName, burntCalories = (r.Exercise.Difficulty * r.Profile_ID.Height * r.Profile_ID.Weight * r.Counter * r.Exercise.Reps * r.Exercise.Set) / 500 }).Distinct();
             Dictionary<string, int> keyValuePairs = new Dictionary<string, int>();
             foreach (var item in ranglist)
             {
