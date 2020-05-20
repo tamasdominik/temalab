@@ -35,10 +35,14 @@ export class AddNewWorkoutComponent implements OnInit {
   addExerciseToCustom(s : string){ 
   this.workout.exercise.push(this.searchInExercises(s));
   }
+
+  redirect(){
+    this.router.navigate(['']);
+  }
   
   saveCustomButton(){
-    this.workoutService.addWorkout(this.workout).subscribe();
-    this.router.navigateByUrl('/workouts');
+    this.workoutService.addWorkout(this.workout).subscribe(result => this.redirect());
+    alert("Your workout has been successfully added!");
   }
 
 }

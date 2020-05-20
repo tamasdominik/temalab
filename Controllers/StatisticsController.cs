@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Temalab_Fitness.Data;
+using Temalab_Fitness.DTO;
 using Temalab_Fitness.Models;
 
 namespace Temalab_Fitness.Controllers
@@ -54,10 +55,10 @@ namespace Temalab_Fitness.Controllers
                     counter[index] += item.Counter; 
                 }
             }
-            List<(string Name, int Counter, int burntcalories)> result = new List<(string Name, int Counter, int burntcalories)>();
+            List<StatisticsDto> result = new List<StatisticsDto>();
             for (int i = 0; i < exerciseNames.Count; i++)
             {
-                result.Add((exerciseNames[i], counter[i], calories[i]*counter[i]));
+                result.Add(new StatisticsDto(exerciseNames[i], counter[i], calories[i]*counter[i]));
             }
 
             return result;

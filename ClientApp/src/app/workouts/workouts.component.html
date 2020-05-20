@@ -6,8 +6,6 @@
     <div class="card-header">
       <a class="card-link" data-toggle="collapse" href="#w{{i}}">
         {{workout.workoutName}}
-        {{workout.id}}  
-        <!-- {{printEx(workout)}} -->
       </a>
       <button (click)="deleteWorkout(workout.id)" type="button" class="btn btn-danger" style="float: right;">Delete</button>
       <button (click)="completeWorkout(workout.id)" type="button" class="btn btn-success" style="float: right;">Completed</button>
@@ -20,7 +18,6 @@
               <th>Exercise name</th>
               <th>Difficulty</th>
               <th>Reps</th>
-              <th>Calories</th>
             </tr>
           </thead>
           <tbody>
@@ -28,7 +25,6 @@
               <td>{{exercise.name}}</td>
               <td>{{exercise.difficulty}}</td>
               <td>{{exercise.set}} x {{exercise.reps}}</td>
-              <td>cal</td>
             </tr>
           </tbody>
         </table>
