@@ -45,25 +45,7 @@ namespace Temalab_Fitness.Controllers
             return profile;
         }
         
-        // GET: api/Profiles/5
-        //[HttpGet]
-        //public async Task<ActionResult<Object>> GetProfile()
-        //{
-        //    var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        //    var profile =  _context.Users.Where(p => p.Id == userid).Select(pp => pp.UserName).First();
-
-        //    if (profile == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return profile;
-        //}
-
-        // PUT: api/Profiles/5
-         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-         // more details see https://aka.ms/RazorPagesCRUD.
+        
         [HttpPut]
         [Authorize]
         public async Task<IActionResult> PutProfile( ApplicationUser profile)
@@ -96,37 +78,5 @@ namespace Temalab_Fitness.Controllers
             return NoContent();
         }
 
-        // POST: api/Profiles
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPost]
-        public async Task<ActionResult<Profile>> PostProfile(Profile profile)
-        {
-            _context.Profile.Add(profile);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetProfile", new { id = profile.ID }, profile);
-        }
-
-        // DELETE: api/Profiles/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Profile>> DeleteProfile(int id)
-        {
-            var profile = await _context.Profile.FindAsync(id);
-            if (profile == null)
-            {
-                return NotFound();
-            }
-
-            _context.Profile.Remove(profile);
-            await _context.SaveChangesAsync();
-
-            return profile;
-        }
-
-        private bool ProfileExists(int id)
-        {
-            return _context.Profile.Any(e => e.ID == id);
-        }
     }
 }

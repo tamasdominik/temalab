@@ -117,6 +117,7 @@ namespace Temalab_Fitness.Controllers
 
         // DELETE: api/Workout_Connection/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<Workout_Connection>> DeleteWorkout_Connection(int id)
         {
 
@@ -133,10 +134,6 @@ namespace Temalab_Fitness.Controllers
             }
             return Ok();
 
-        }
-        private bool Workout_ConnectionExists(int id)
-        {
-            return _context.Workout_Connection.Any(e => e.ID == id);
         }
     }
 }
