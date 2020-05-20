@@ -4,7 +4,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Temalab_Fitness.Data;
@@ -31,29 +30,38 @@ namespace Temalab_Fitness.Controllers
 
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var stats = _context.Workout_Connection.Where(s => s.Profile_ID.Id == id).Select(s => new { s.Exercise.Name, s.Counter, burntcalories = (s.Exercise.Difficulty * s.Profile_ID.Height * s.Profile_ID.Weight * s.Counter) / 500 });
+            var stats = _context.Workout_Connection.Where(s => s.Profile_ID.Id == id).Select(s => new { s.Exercise.Name, Counter = s.Counter * s.Exercise.Set * s.Exercise.Reps, burntcalories = (s.Exercise.Difficulty * s.Profile_ID.Height * s.Profile_ID.Weight) / 500 }).ToList();
 
             if (stats == null)
             {
                 return NotFound();
             }
 
-            return await stats.ToListAsync();
+            List<string> exerciseNames = new List<string>();
+            List<int> calories = new List<int>();
+            List<int> counter = new List<int>();
+            foreach (var item in stats)
+            {
+                if (!exerciseNames.Contains(item.Name))
+                {
+                    exerciseNames.Add(item.Name);
+                    calories.Add(item.burntcalories);
+                    counter.Add(item.Counter);
+                }
+                else
+                {
+                    int index = exerciseNames.IndexOf(item.Name);
+                    counter[index] += item.Counter; 
+                }
+            }
+            List<(string Name, int Counter, int burntcalories)> result = new List<(string Name, int Counter, int burntcalories)>();
+            for (int i = 0; i < exerciseNames.Count; i++)
+            {
+                result.Add((exerciseNames[i], counter[i], calories[i]*counter[i]));
+            }
+
+            return result;
         }
-
-        // GET: api/Statistics/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Object>> GetWorkout_Connection(int id)
-        //{
-        //    var stats = _context.Workout_Connection.Where(s=>s.Profile_ID.ID ==id).Select(s=> new {s.Exercise.Name, s.Counter, burntcalories = (s.Exercise.Difficulty * s.Profile_ID.Height * s.Profile_ID.Weight * s.Counter) / 500 });
-
-        //    if (stats == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return await stats.ToListAsync();
-        //}
 
         // PUT: api/Statistics/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for

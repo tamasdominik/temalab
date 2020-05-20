@@ -41,20 +41,20 @@ namespace Temalab_Fitness.Controllers
             return await ms3.ToListAsync();
         }
 
-        // GET: api/MileStones/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Object>> GetMileStone(int id)
-        {
+        //// GET: api/MileStones/5
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<Object>> GetMileStone(int id)
+        //{
 
-            var ms3 =
-                from ms in _context.MileStone_Connection
-                join s in _context.Workout_Connection on ms.MileStone_ID.Name equals s.Exercise.Name
-                where ms.Profile.Id == id.ToString()
-                orderby ms.MileStone_ID.ID
-                select new { ms.MileStone_ID.Name, s.Counter, ms.MileStone_ID.Goal };
+        //    var ms3 =
+        //        from ms in _context.MileStone_Connection
+        //        join s in _context.Workout_Connection on ms.MileStone_ID.Name equals s.Exercise.Name
+        //        where ms.Profile.Id == id.ToString()
+        //        orderby ms.MileStone_ID.ID
+        //        select new { ms.MileStone_ID.Name, s.Counter, ms.MileStone_ID.Goal };
 
-            return await ms3.ToListAsync();
-        }
+        //    return await ms3.ToListAsync();
+        //}
 
         // PUT: api/MileStones/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
