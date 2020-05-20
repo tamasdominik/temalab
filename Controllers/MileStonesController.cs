@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SQLitePCL;
 using Temalab_Fitness.Data;
+using Temalab_Fitness.DTO;
 using Temalab_Fitness.Models;
 
 namespace Temalab_Fitness.Controllers
@@ -31,14 +33,29 @@ namespace Temalab_Fitness.Controllers
 
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var ms3 =
+            var milestones =
                 from ms in _context.MileStone_Connection
                 join s in _context.Workout_Connection on ms.MileStone_ID.Name equals s.Exercise.Name
                 where ms.Profile.Id == id
                 orderby ms.MileStone_ID.ID
                 select new { ms.MileStone_ID.Name, s.Counter, ms.MileStone_ID.Goal };
-
-            return await ms3.ToListAsync();
+            var mileStones = milestones.ToList();
+            var exercises = new List<string>();
+            var result = new List<MilestoneDTO>();
+            foreach (var item in mileStones)
+            {
+                if (!exercises.Contains(item.Name))
+                {
+                    result.Add(new MilestoneDTO(item.Name, item.Counter, item.Goal));
+                    exercises.Add(item.Name);
+                }
+                else
+                {
+                    MilestoneDTO ms = result.Where(m => m.Name == item.Name).First();
+                    ms.AddCounter(item.Counter);
+                }
+            }
+            return result;
         }
 
         //// GET: api/MileStones/5
