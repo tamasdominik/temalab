@@ -11,7 +11,7 @@ export class MilestoneService {
   private MilestoneURL : string;
 
   constructor(private http : HttpClient) {
-    this.MilestoneURL = "https://localhost:44319/api/Milestones";
+    this.MilestoneURL = "/api/Milestones";
    }
 
    public findAll(): Observable<Milestone[]>{

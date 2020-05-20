@@ -11,7 +11,7 @@ export class RanglistService {
   private ranglistURL : string;
 
   constructor(private http : HttpClient) {
-    this.ranglistURL = "https://localhost:44319/api/Ranglist";
+    this.ranglistURL = "/api/Ranglist";
    }
 
    public getAllRanks(): Observable<Ranglist[]>{

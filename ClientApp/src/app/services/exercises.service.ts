@@ -11,7 +11,7 @@ export class ExercisesService {
   private exercisesURL : string;
 
   constructor(private http : HttpClient) {
-    this.exercisesURL = "https://localhost:44319/api/Exercises";
+    this.exercisesURL = "/api/Exercises";
    }
 
    public findAll(): Observable<Exercise[]>{

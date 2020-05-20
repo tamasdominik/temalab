@@ -11,7 +11,7 @@ export class StatisticsService {
   private statisticsURL : string;
 
   constructor(private http : HttpClient) {
-    this.statisticsURL = "https://localhost:44319/api/Statistics";
+    this.statisticsURL = "/api/Statistics";
    }
 
    public findAll(): Observable<Statistics[]>{

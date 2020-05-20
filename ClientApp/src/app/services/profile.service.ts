@@ -11,7 +11,7 @@ export class ProfileService {
   private profileURL : string;
 
   constructor(private http : HttpClient) { 
-    this.profileURL="https://localhost:44319/api/Profiles";
+    this.profileURL="/api/Profiles";
   }
 
   public getProfile(): Observable<Profile>{
